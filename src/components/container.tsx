@@ -5,12 +5,22 @@ import { StyleSheet, withUnistyles } from "react-native-unistyles";
 
 const ThemedSafeAreaView = withUnistyles(SafeAreaView);
 
-export function Container({ children }: { children: React.ReactNode }) {
-  return (
-    <ThemedSafeAreaView style={styles.container}>
-      <Animated.View style={styles.content}>{children}</Animated.View>
-    </ThemedSafeAreaView>
-  );
+export function Container({
+  children,
+  safeArea,
+}: {
+  children: React.ReactNode;
+  safeArea?: boolean;
+}) {
+  if (safeArea) {
+    return (
+      <ThemedSafeAreaView style={styles.container}>
+        <Animated.View style={styles.content}>{children}</Animated.View>
+      </ThemedSafeAreaView>
+    );
+  }
+
+  return <Animated.View style={styles.content}>{children}</Animated.View>;
 }
 
 const styles = StyleSheet.create((theme, rt) => ({

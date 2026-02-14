@@ -1,13 +1,17 @@
+import { useHeaderHeight } from "@react-navigation/elements";
 import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { FlatList, Pressable, Text, View } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
-import { MenuItem } from "../../components/menu-item";
-import { appEnvs } from "../../config/envs";
-import { CATEGORIES, dishes } from "../../database/dishes";
-import type { Dish } from "../../interfaces/dish";
+import { Container } from "../components/container";
+import { MenuItem } from "../components/menu-item";
+import { appEnvs } from "../config/envs";
+import { CATEGORIES, dishes } from "../database/dishes";
+import type { Dish } from "../interfaces/dish";
 
 export default function Home() {
+  const headerHeight = useHeaderHeight();
+
   const [searches, setSearches] = useState<string[]>([]);
 
   const { data } = useQuery<{ menu: Dish[] }>({
@@ -54,29 +58,31 @@ export default function Home() {
   }, [data]);
 
   return (
-    <View style={styles.container}>
-      <View>
+    <Container safeArea={headerHeight === 0}>
+      <View style={styles.container}>
+        <View>
+          <FlatList
+            horizontal
+            data={CATEGORIES}
+            renderItem={(item) => (
+              <Pressable
+                style={[styles.chip, isActive(item.item) && styles.chipActive]}
+                onPress={() => {
+                  handleFilter(item.item);
+                }}
+              >
+                <Text>{item.item}</Text>
+              </Pressable>
+            )}
+          />
+        </View>
+
         <FlatList
-          horizontal
-          data={CATEGORIES}
-          renderItem={(item) => (
-            <Pressable
-              style={[styles.chip, isActive(item.item) && styles.chipActive]}
-              onPress={() => {
-                handleFilter(item.item);
-              }}
-            >
-              <Text>{item.item}</Text>
-            </Pressable>
-          )}
+          data={dishesData ?? []}
+          renderItem={(item) => <MenuItem item={item.item} />}
         />
       </View>
-
-      <FlatList
-        data={dishesData ?? []}
-        renderItem={(item) => <MenuItem item={item.item} />}
-      />
-    </View>
+    </Container>
   );
 }
 

@@ -1,11 +1,14 @@
+import { useHeaderHeight } from "@react-navigation/elements";
 import { Link } from "expo-router";
 import { Image, Pressable, Text, TextInput, View } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
 import { Container } from "@/components/container";
 
 export default function Onboarding() {
+  const headerHeight = useHeaderHeight();
+
   return (
-    <Container>
+    <Container safeArea={headerHeight === 0}>
       <View style={styles.content}>
         <View style={styles.logoContent}>
           <Image
@@ -31,7 +34,7 @@ export default function Onboarding() {
         </View>
         <Link
           asChild
-          href="/(tabs)"
+          href="/home"
         >
           <Pressable style={styles.button}>
             <Text>Próximo</Text>

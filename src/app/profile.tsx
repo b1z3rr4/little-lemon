@@ -1,14 +1,15 @@
+import { useHeaderHeight } from "@react-navigation/elements";
 import { Checkbox } from "expo-checkbox";
 import { Image, Pressable, Text, TextInput, View } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
 import { Container } from "@/components/container";
 
 export default function Profile() {
-  return (
-    <Container>
-      <View style={styles.content}>
-        <Text>Informações pessoais</Text>
+  const headerHeight = useHeaderHeight();
 
+  return (
+    <Container safeArea={headerHeight === 0}>
+      <View style={styles.content}>
         <View style={styles.section}>
           <Text>Perfil</Text>
           <View style={{ alignItems: "center", flexDirection: "row" }}>
@@ -77,7 +78,14 @@ export default function Profile() {
   );
 }
 
-const styles = StyleSheet.create((_theme) => ({
+const styles = StyleSheet.create((theme) => ({
+  content: {
+    alignItems: "center",
+    flex: 1,
+    justifyContent: "space-between",
+    padding: 12,
+    backgroundColor: theme.colors.background,
+  },
   button: {
     alignItems: "center",
     backgroundColor: "#F4CE14",
@@ -91,12 +99,6 @@ const styles = StyleSheet.create((_theme) => ({
   },
   checkbox: {
     marginRight: 8,
-  },
-  content: {
-    alignItems: "center",
-    flex: 1,
-    justifyContent: "space-between",
-    padding: 12,
   },
   image: {
     alignSelf: "center",
