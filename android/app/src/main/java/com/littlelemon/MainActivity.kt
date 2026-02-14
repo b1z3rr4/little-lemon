@@ -1,4 +1,4 @@
-package com.teczer.exponativewindtypescriptboilerplate
+package com.littlelemon
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build

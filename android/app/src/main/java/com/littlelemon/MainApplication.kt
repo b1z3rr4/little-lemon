@@ -1,4 +1,4 @@
-package com.teczer.exponativewindtypescriptboilerplate
+package com.littlelemon
 
 import android.app.Application
 import android.content.res.Configuration

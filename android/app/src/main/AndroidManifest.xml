@@ -24,8 +24,8 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="myapp"/>
-        <data android:scheme="exp+expo-nativewind-typescript-boilerplate"/>
+        <data android:scheme="little-lemon"/>
+        <data android:scheme="exp+little-lemon"/>
       </intent-filter>
     </activity>
   </application>

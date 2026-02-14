@@ -14,6 +14,7 @@ import {
   useUnistyles,
   withUnistyles,
 } from "react-native-unistyles";
+import { initDatabase } from "../database";
 
 const ThemedGestureHandlerRootView = withUnistyles(GestureHandlerRootView);
 
@@ -46,6 +47,10 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [loaded]);
+
+  useEffect(() => {
+    initDatabase();
+  }, []);
 
   if (!loaded) {
     return null;
