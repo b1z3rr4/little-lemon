@@ -3,10 +3,11 @@ export type ModelReturn<T> = T & {
 };
 
 export interface DatabaseActions<T> {
-  getAll: () => Promise<ModelReturn<T>[]>;
-  getById: (id: string) => Promise<ModelReturn<T>>;
-  insertAll: (data: T[]) => Promise<boolean>;
-  insert: (data: T) => Promise<ModelReturn<T>>;
-  deleteAll: () => Promise<boolean>;
-  deleteById: (id: string) => Promise<boolean>;
+  getAll: () => ModelReturn<T>[];
+  getById: (id: string) => ModelReturn<T>;
+  insertAll: (data: T[]) => boolean;
+  insert: (data: T) => ModelReturn<T>;
+  deleteAll: () => boolean;
+  deleteById: (id: string) => boolean;
+  getByFilters: (field: string, search: string[]) => ModelReturn<T>[];
 }

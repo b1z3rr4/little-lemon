@@ -2,8 +2,10 @@ export const DATABASE = "little-lemon.db";
 
 import * as SQLite from "expo-sqlite";
 
+let db: SQLite.SQLiteDatabase;
+
 export const initDatabase = async () => {
-  const db = await SQLite.openDatabaseAsync(DATABASE);
+  db = await SQLite.openDatabaseAsync(DATABASE);
 
   await db.execAsync(`
     CREATE TABLE IF NOT EXISTS dishes (
@@ -11,9 +13,17 @@ export const initDatabase = async () => {
       name TEXT NOT NULL,
       description TEXT,
       image TEXT,
-      price REAL
+      price REAL,
+      category TEXT
     );
   `);
 
   return db;
 };
+
+export function getDatabase() {
+  if (!db) {
+    throw new Error("Database not initialized");
+  }
+  return db;
+}

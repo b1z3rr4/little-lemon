@@ -1,34 +1,55 @@
-import * as SQLite from "expo-sqlite";
-
 import type { Dish } from "../interfaces/dish";
-import { DATABASE } from ".";
+import { getDatabase } from ".";
 import type { DatabaseActions, ModelReturn } from "./interface";
 
-export const dishes: Pick<DatabaseActions<Dish>, "getAll" | "insertAll"> = {
-  getAll: async () => {
-    const db = await SQLite.openDatabaseAsync(DATABASE);
+export const CATEGORIES = [
+  "Starters",
+  "Mains",
+  "Desserts",
+  "Drinks",
+  "Specials",
+];
+
+export const dishes: Pick<
+  DatabaseActions<Dish>,
+  "getAll" | "insertAll" | "getByFilters"
+> = {
+  getAll: () => {
+    const db = getDatabase();
 
     const result = db.getAllSync<ModelReturn<Dish>>("SELECT * FROM dishes;");
     return result;
   },
-  insertAll: async (dishes) => {
-    const db = await SQLite.openDatabaseAsync(DATABASE);
+  getByFilters: (field, searches) => {
+    const db = getDatabase();
+
+    const placeholders = searches.map(() => "?").join(",");
+
+    const result = db.getAllSync<ModelReturn<Dish>>(
+      `SELECT * FROM dishes WHERE ${field} IN (${placeholders})`,
+      searches
+    );
+
+    return result;
+  },
+  insertAll: (dishes) => {
+    const db = getDatabase();
 
     const insertQuery = `
     INSERT OR REPLACE INTO dishes
-    (id, name, description, image, price)
-    VALUES (?, ?, ?, ?, ?);
+    (id, name, description, image, price, category)
+    VALUES (?, ?, ?, ?, ?, ?);
   `;
 
     try {
       for (const dish of dishes) {
-        const id = crypto.randomUUID();
         db.runSync(insertQuery, [
-          id,
+          dish.name,
           dish.name,
           dish.description,
           dish.image,
           dish.price,
+          dish.category,
         ]);
       }
 
