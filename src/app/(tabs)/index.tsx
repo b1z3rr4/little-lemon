@@ -16,12 +16,6 @@ export default function Home() {
     },
   });
 
-  // useEffect(() => {
-  //   if (data) {
-  //     insertDishes(db, data.menu);
-  //   }
-  // }, [data, db]);
-
   return (
     <Container>
       <View style={styles.content}>
