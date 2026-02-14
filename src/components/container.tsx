@@ -1,7 +1,7 @@
-import React from 'react';
-import Animated from 'react-native-reanimated';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { StyleSheet, withUnistyles } from 'react-native-unistyles';
+import type React from "react";
+import Animated from "react-native-reanimated";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StyleSheet, withUnistyles } from "react-native-unistyles";
 
 const ThemedSafeAreaView = withUnistyles(SafeAreaView);
 
@@ -15,8 +15,8 @@ export function Container({ children }: { children: React.ReactNode }) {
 
 const styles = StyleSheet.create((theme, rt) => ({
   container: {
-    flex: 1,
     backgroundColor: theme.colors.background,
+    flex: 1,
   },
   content: {
     flex: 1,
