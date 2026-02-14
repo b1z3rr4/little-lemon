@@ -1,13 +1,12 @@
-import React from 'react';
-import { Link, Stack } from 'expo-router';
-import { Text, View } from 'react-native';
-import { StyleSheet } from 'react-native-unistyles';
-import { Container } from '@/components/container';
+import { Link, Stack } from "expo-router";
+import { Text, View } from "react-native";
+import { StyleSheet } from "react-native-unistyles";
+import { Container } from "@/components/container";
 
 export default function NotFoundScreen() {
   return (
     <>
-      <Stack.Screen options={{ title: 'Oops!' }} />
+      <Stack.Screen options={{ title: "Oops!" }} />
       <Container>
         <View style={styles.container}>
           <View style={styles.content}>
@@ -16,7 +15,10 @@ export default function NotFoundScreen() {
             <Text style={styles.description}>
               Sorry, the page you're looking for doesn't exist.
             </Text>
-            <Link href="/" style={styles.button}>
+            <Link
+              href="/"
+              style={styles.button}
+            >
               <Text style={styles.buttonText}>Go to Home</Text>
             </Link>
           </View>
@@ -27,40 +29,40 @@ export default function NotFoundScreen() {
 }
 
 const styles = StyleSheet.create((theme) => ({
+  button: {
+    backgroundColor: `${theme.colors.primary}1A`,
+    borderRadius: theme.borderRadius.lg,
+    paddingHorizontal: theme.spacing.lg,
+    paddingVertical: theme.spacing.sm + 4,
+  },
+  buttonText: {
+    color: theme.colors.primary,
+    fontWeight: "500",
+  },
   container: {
+    alignItems: "center",
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
     padding: theme.spacing.lg,
   },
   content: {
-    alignItems: 'center',
+    alignItems: "center",
+  },
+  description: {
+    color: theme.colors.mutedForeground,
+    marginBottom: theme.spacing.xl,
+    maxWidth: 280,
+    textAlign: "center",
   },
   emoji: {
     fontSize: 64,
     marginBottom: theme.spacing.md,
   },
   title: {
-    fontSize: theme.fontSize['2xl'],
-    fontWeight: 'bold',
     color: theme.colors.foreground,
+    fontSize: theme.fontSize["2xl"],
+    fontWeight: "bold",
     marginBottom: theme.spacing.sm,
-    textAlign: 'center',
-  },
-  description: {
-    color: theme.colors.mutedForeground,
-    textAlign: 'center',
-    marginBottom: theme.spacing.xl,
-    maxWidth: 280,
-  },
-  button: {
-    backgroundColor: `${theme.colors.primary}1A`, // 10% opacity
-    paddingHorizontal: theme.spacing.lg,
-    paddingVertical: theme.spacing.sm + 4,
-    borderRadius: theme.borderRadius.lg,
-  },
-  buttonText: {
-    color: theme.colors.primary,
-    fontWeight: '500',
+    textAlign: "center",
   },
 }));

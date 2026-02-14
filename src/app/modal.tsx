@@ -1,6 +1,6 @@
-import { Container } from '@/components/container';
-import { Text, View } from 'react-native';
-import { StyleSheet } from 'react-native-unistyles';
+import { Text, View } from "react-native";
+import { StyleSheet } from "react-native-unistyles";
+import { Container } from "@/components/container";
 
 export default function Modal() {
   return (
@@ -20,14 +20,14 @@ const styles = StyleSheet.create((theme) => ({
     padding: theme.spacing.lg,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: theme.spacing.xl,
   },
   title: {
-    fontSize: theme.fontSize['2xl'],
-    fontWeight: 'bold',
     color: theme.colors.foreground,
+    fontSize: theme.fontSize["2xl"],
+    fontWeight: "bold",
   },
 }));
