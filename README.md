@@ -106,4 +106,3 @@ See the [Contributing Guide](../../docs/CONTRIBUTING.md).
 ---
 
 Made with ♥ by [Teczer](https://github.com/Teczer)
-

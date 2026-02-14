@@ -1,3 +1,3 @@
 module.exports = {
-    src: "src/app",
+  src: "src/app",
 };
