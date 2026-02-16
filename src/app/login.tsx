@@ -1,24 +1,44 @@
 import { useHeaderHeight } from "@react-navigation/elements";
-import { Link } from "expo-router";
+import { useRouter } from "expo-router";
+import { useCallback, useState } from "react";
 import { Image, Pressable, Text, TextInput, View } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
 import { Container } from "@/components/container";
+import { authStore } from "../stores/auth";
 
 export default function Login() {
   const headerHeight = useHeaderHeight();
+
+  const router = useRouter();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  const submitDisabled = !name.length || !email.length;
+
+  const handleSubmit = useCallback(() => {
+    if (!submitDisabled) {
+      authStore.save({ name, email });
+      router.navigate("/(tabs)");
+    }
+  }, [name, email, submitDisabled, router]);
 
   return (
     <Container safeArea={headerHeight === 0}>
       <View style={styles.content}>
         <View style={styles.logoContent}>
           <Image
-            source={require("../../assets/images/logo-square.png")}
             style={styles.image}
+            source={require("../../assets/images/logo-square.png")}
           />
           <View style={styles.inputGroup}>
             <View style={styles.inputContainer}>
               <Text style={styles.inputLabel}>Nome: </Text>
               <TextInput
+                value={name}
+                onChangeText={(text) => {
+                  setName(text);
+                }}
                 placeholder="John"
                 style={styles.input}
               />
@@ -26,20 +46,33 @@ export default function Login() {
             <View style={styles.inputContainer}>
               <Text style={styles.inputLabel}>Email: </Text>
               <TextInput
+                value={email}
+                onChangeText={(text) => {
+                  setEmail(text);
+                }}
                 placeholder="john@example.com"
                 style={styles.input}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                autoCorrect={false}
               />
             </View>
           </View>
         </View>
-        <Link
-          asChild
-          href="/(tabs)"
+
+        <Pressable
+          style={[styles.button, submitDisabled && styles.buttonDisabled]}
+          onPress={handleSubmit}
         >
-          <Pressable style={styles.button}>
-            <Text style={styles.buttonText}>Próximo</Text>
-          </Pressable>
-        </Link>
+          <Text
+            style={[
+              styles.buttonText,
+              submitDisabled && styles.buttonTextDisabled,
+            ]}
+          >
+            Próximo
+          </Text>
+        </Pressable>
       </View>
     </Container>
   );
@@ -48,7 +81,7 @@ export default function Login() {
 const styles = StyleSheet.create((theme) => ({
   button: {
     minHeight: 42,
-    minWidth: 120,
+    width: "100%",
     borderRadius: 8,
     paddingVertical: 8,
     alignItems: "center",
@@ -57,10 +90,16 @@ const styles = StyleSheet.create((theme) => ({
     justifyContent: "center",
     backgroundColor: theme.colors.primary,
   },
+  buttonDisabled: {
+    backgroundColor: theme.colors.muted,
+  },
   buttonText: {
     fontSize: 14,
     fontWeight: 600,
     color: theme.colors.primaryForeground,
+  },
+  buttonTextDisabled: {
+    color: theme.colors.mutedForeground,
   },
   content: {
     alignItems: "center",

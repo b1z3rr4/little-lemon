@@ -67,7 +67,7 @@ function RootLayoutNav() {
     <ThemedGestureHandlerRootView style={styles.container}>
       <KeyboardProvider>
         <QueryProvider>
-          <StatusBar backgroundColor="#495E57" />
+          <StatusBar style={currentTheme === "light" ? "light" : "dark"} />
           <Stack
             screenOptions={{
               headerStyle: {
@@ -82,7 +82,6 @@ function RootLayoutNav() {
             <Stack.Screen
               name="(tabs)"
               options={{
-                title: "Menu",
                 headerShown: false,
               }}
             />

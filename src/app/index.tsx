@@ -2,8 +2,11 @@ import { Link } from "expo-router";
 import { Image, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet } from "react-native-unistyles";
+import { authStore } from "../stores/auth";
 
 export default function Onboarding() {
+  const authData = authStore.get();
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
@@ -21,7 +24,7 @@ export default function Onboarding() {
 
         <Link
           asChild
-          href="/login"
+          href={authData?.name ? "/(tabs)" : "/login"}
         >
           <Pressable style={styles.button}>
             <Text style={styles.buttonText}>Entrar</Text>

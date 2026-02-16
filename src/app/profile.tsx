@@ -1,11 +1,20 @@
 import { useHeaderHeight } from "@react-navigation/elements";
 import { Checkbox } from "expo-checkbox";
+import { useState } from "react";
 import { Image, Pressable, Text, TextInput, View } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
 import { Container } from "@/components/container";
+import { authStore } from "../stores/auth";
 
 export default function Profile() {
   const headerHeight = useHeaderHeight();
+
+  const [name, setName] = useState(() => {
+    return authStore.get()?.name ?? "";
+  });
+  const [email, setEmail] = useState(() => {
+    return authStore.get()?.email ?? "";
+  });
 
   return (
     <Container safeArea={headerHeight === 0}>
@@ -26,6 +35,10 @@ export default function Profile() {
         <View style={styles.section}>
           <Text style={styles.inputLabel}>Nome: </Text>
           <TextInput
+            value={name}
+            onChangeText={(text) => {
+              setName(text);
+            }}
             placeholder="John"
             style={styles.input}
           />
@@ -34,8 +47,15 @@ export default function Profile() {
         <View style={styles.section}>
           <Text style={styles.inputLabel}>Email: </Text>
           <TextInput
-            placeholder="john@example"
+            value={email}
+            onChangeText={(text) => {
+              setEmail(text);
+            }}
+            placeholder="john@example.com"
             style={styles.input}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}
           />
         </View>
 
@@ -66,10 +86,6 @@ export default function Profile() {
             <Text style={styles.inputLabel}>Newsletter</Text>
           </View>
         </View>
-
-        <Pressable style={styles.button}>
-          <Text style={styles.buttonText}>Sair</Text>
-        </Pressable>
       </View>
     </Container>
   );

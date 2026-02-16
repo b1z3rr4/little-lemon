@@ -1,10 +1,9 @@
 import { createMMKV } from "react-native-mmkv";
-import type { StateStorage } from "zustand/middleware";
 
 export const storage = createMMKV();
 export const encryptedStorage = createMMKV();
 
-export const mmkvStorage: StateStorage = {
+export const mmkvStorage = {
   getItem: (name: string) => {
     const value = storage.getString(name);
     return value ?? null;
@@ -17,7 +16,7 @@ export const mmkvStorage: StateStorage = {
   },
 } as const;
 
-export const mmkvEncryptedStorage: StateStorage = {
+export const mmkvEncryptedStorage = {
   getItem: (name: string) => {
     const value = encryptedStorage.getString(name);
     return value ?? null;
