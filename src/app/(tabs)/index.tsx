@@ -3,11 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { FlatList, Pressable, Text, View } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
-import { Container } from "../components/container";
-import { MenuItem } from "../components/menu-item";
-import { appEnvs } from "../config/envs";
-import { CATEGORIES, dishes } from "../database/dishes";
-import type { Dish } from "../interfaces/dish";
+import { Container } from "../../components/container";
+import { MenuItem } from "../../components/menu-item";
+import { appEnvs } from "../../config/envs";
+import { CATEGORIES, dishes } from "../../database/dishes";
+import type { Dish } from "../../interfaces/dish";
 
 export default function Home() {
   const headerHeight = useHeaderHeight();
@@ -71,7 +71,7 @@ export default function Home() {
                   handleFilter(item.item);
                 }}
               >
-                <Text>{item.item}</Text>
+                <Text style={styles.chipText}>{item.item}</Text>
               </Pressable>
             )}
           />
@@ -100,9 +100,12 @@ const styles = StyleSheet.create((theme) => ({
     paddingHorizontal: 12,
     alignSelf: "flex-start",
     justifyContent: "center",
-    backgroundColor: theme.colors.accent,
+    backgroundColor: theme.colors.primary,
   },
   chipActive: {
     backgroundColor: theme.colors.success,
+  },
+  chipText: {
+    color: theme.colors.primaryForeground,
   },
 }));

@@ -1,6 +1,6 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
-import { Link, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
@@ -8,7 +8,6 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { QueryProvider } from "@/providers/query-provider";
 import "react-native-reanimated";
-import { Pressable } from "react-native";
 import {
   StyleSheet,
   UnistylesRuntime,
@@ -68,7 +67,7 @@ function RootLayoutNav() {
     <ThemedGestureHandlerRootView style={styles.container}>
       <KeyboardProvider>
         <QueryProvider>
-          <StatusBar style={currentTheme === "light" ? "dark" : "light"} />
+          <StatusBar backgroundColor="#495E57" />
           <Stack
             screenOptions={{
               headerStyle: {
@@ -81,35 +80,19 @@ function RootLayoutNav() {
             }}
           >
             <Stack.Screen
+              name="(tabs)"
+              options={{
+                title: "Menu",
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
               name="index"
               options={{ headerShown: false }}
             />
             <Stack.Screen
-              name="home"
-              options={{
-                title: "Menu",
-                headerBackVisible: false,
-                headerRight: () => (
-                  <Link
-                    asChild
-                    href="/profile"
-                  >
-                    <Pressable>
-                      {({ pressed }) => (
-                        <FontAwesome
-                          color={theme.colors.foreground}
-                          name="user-circle"
-                          size={25}
-                          style={{
-                            marginRight: 15,
-                            opacity: pressed ? 0.5 : 1,
-                          }}
-                        />
-                      )}
-                    </Pressable>
-                  </Link>
-                ),
-              }}
+              name="login"
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="profile"

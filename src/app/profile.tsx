@@ -18,16 +18,13 @@ export default function Profile() {
               style={styles.image}
             />
             <Pressable style={styles.button}>
-              <Text>Alterar</Text>
-            </Pressable>
-            <Pressable style={styles.button}>
-              <Text>Remover</Text>
+              <Text style={styles.buttonText}>Alterar</Text>
             </Pressable>
           </View>
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.label}>Nome: </Text>
+          <Text style={styles.inputLabel}>Nome: </Text>
           <TextInput
             placeholder="John"
             style={styles.input}
@@ -35,7 +32,7 @@ export default function Profile() {
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.label}>Email: </Text>
+          <Text style={styles.inputLabel}>Email: </Text>
           <TextInput
             placeholder="john@example"
             style={styles.input}
@@ -43,7 +40,7 @@ export default function Profile() {
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.label}>Número: </Text>
+          <Text style={styles.inputLabel}>Número: </Text>
           <TextInput
             placeholder="55 11 12345 6789"
             style={styles.input}
@@ -51,27 +48,27 @@ export default function Profile() {
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.label}>Email notifications</Text>
+          <Text style={styles.sectionLabel}>Email notifications</Text>
           <View style={{ alignItems: "center", flexDirection: "row" }}>
             <Checkbox style={styles.checkbox} />
-            <Text>Status dos pedidos</Text>
+            <Text style={styles.inputLabel}>Status dos pedidos</Text>
           </View>
           <View style={{ alignItems: "center", flexDirection: "row" }}>
             <Checkbox style={styles.checkbox} />
-            <Text>Mudanças de senha</Text>
+            <Text style={styles.inputLabel}>Mudanças de senha</Text>
           </View>
           <View style={{ alignItems: "center", flexDirection: "row" }}>
             <Checkbox style={styles.checkbox} />
-            <Text>Ofertas especiais</Text>
+            <Text style={styles.inputLabel}>Ofertas especiais</Text>
           </View>
           <View style={{ alignItems: "center", flexDirection: "row" }}>
             <Checkbox style={styles.checkbox} />
-            <Text>Newsletter</Text>
+            <Text style={styles.inputLabel}>Newsletter</Text>
           </View>
         </View>
 
         <Pressable style={styles.button}>
-          <Text>Sair</Text>
+          <Text style={styles.buttonText}>Sair</Text>
         </Pressable>
       </View>
     </Container>
@@ -87,15 +84,20 @@ const styles = StyleSheet.create((theme) => ({
     backgroundColor: theme.colors.background,
   },
   button: {
-    alignItems: "center",
-    backgroundColor: "#F4CE14",
-    borderRadius: 8,
-    fontSize: 14,
-    justifyContent: "center",
     minHeight: 42,
     minWidth: 120,
-    paddingHorizontal: 12,
+    borderRadius: 8,
     paddingVertical: 8,
+    alignItems: "center",
+    paddingHorizontal: 12,
+    alignSelf: "flex-end",
+    justifyContent: "center",
+    backgroundColor: theme.colors.primary,
+  },
+  buttonText: {
+    fontSize: 14,
+    fontWeight: 600,
+    color: theme.colors.primaryForeground,
   },
   checkbox: {
     marginRight: 8,
@@ -108,17 +110,20 @@ const styles = StyleSheet.create((theme) => ({
     width: 120,
   },
   input: {
-    borderColor: "#333",
+    borderColor: theme.colors.border,
     borderRadius: 8,
     borderWidth: 1,
-    color: "#333",
-    fontSize: 14,
+    color: theme.colors.foreground,
     opacity: 0.6,
     paddingHorizontal: 12,
     paddingVertical: 8,
     width: "100%",
   },
-  label: {
+  inputLabel: {
+    color: theme.colors.foreground,
+    fontSize: 14,
+  },
+  sectionLabel: {
     fontSize: 15,
   },
   section: {

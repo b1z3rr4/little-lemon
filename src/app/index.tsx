@@ -1,97 +1,71 @@
-import { useHeaderHeight } from "@react-navigation/elements";
 import { Link } from "expo-router";
-import { Image, Pressable, Text, TextInput, View } from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet } from "react-native-unistyles";
-import { Container } from "@/components/container";
 
 export default function Onboarding() {
-  const headerHeight = useHeaderHeight();
-
   return (
-    <Container safeArea={headerHeight === 0}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        <View style={styles.logoContent}>
-          <Image
-            source={require("../../assets/images/logo-square.png")}
-            style={styles.image}
-          />
-          <View style={styles.inputGroup}>
-            <View style={styles.inputContainer}>
-              <Text>Nome: </Text>
-              <TextInput
-                placeholder="John"
-                style={styles.input}
-              />
-            </View>
-            <View style={styles.inputContainer}>
-              <Text>Email: </Text>
-              <TextInput
-                placeholder="john@example.com"
-                style={styles.input}
-              />
-            </View>
-          </View>
+        <View>
+          <Text style={styles.title}>Little Lemon</Text>
+          <Text style={styles.subtitle}>Chicago</Text>
         </View>
+
+        <View>
+          <Image
+            style={styles.image}
+            source={require("../../assets/images/banner.png")}
+          />
+        </View>
+
         <Link
           asChild
-          href="/home"
+          href="/login"
         >
           <Pressable style={styles.button}>
-            <Text>Próximo</Text>
+            <Text style={styles.buttonText}>Entrar</Text>
           </Pressable>
         </Link>
       </View>
-    </Container>
+    </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create((_theme) => ({
-  button: {
-    alignItems: "center",
-    alignSelf: "flex-end",
-    backgroundColor: "#F4CE14",
-    borderRadius: 8,
-    fontSize: 14,
-    justifyContent: "center",
-    minHeight: 42,
-    minWidth: 120,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-  },
+const styles = StyleSheet.create((theme) => ({
+  container: { flex: 1, backgroundColor: "#495E57" },
   content: {
-    alignItems: "center",
     flex: 1,
-    justifyContent: "space-between",
     padding: 48,
+    alignItems: "center",
+    backgroundColor: "#495E57",
+    justifyContent: "space-between",
+  },
+  title: {
+    fontSize: 52,
+    fontWeight: 700,
+  },
+  subtitle: {
+    fontSize: 24,
   },
   image: {
-    alignSelf: "center",
-    height: 200,
-    objectFit: "contain",
-    width: 200,
+    width: 500,
+    height: 500,
+    objectFit: "fill",
   },
-  input: {
-    borderColor: "#333",
+  button: {
+    minHeight: 42,
+    width: "100%",
     borderRadius: 8,
-    borderWidth: 1,
-    color: "#333",
-    fontSize: 14,
-    opacity: 0.6,
-    paddingHorizontal: 12,
     paddingVertical: 8,
-    width: "100%",
-  },
-  inputContainer: {
-    gap: 4,
-    width: "100%",
-  },
-  inputGroup: {
-    gap: 12,
-  },
-  logoContent: {
-    flex: 1,
-    gap: 24,
+    alignItems: "center",
+    paddingHorizontal: 12,
     justifyContent: "center",
-    width: "100%",
+    backgroundColor: theme.colors.primary,
+  },
+  buttonText: {
+    fontSize: 14,
+    fontWeight: 600,
+    color: theme.colors.primaryForeground,
   },
 }));

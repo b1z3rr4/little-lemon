@@ -14,8 +14,13 @@ export const MenuItem = ({ item }: MenuItemProps) => {
     <View style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.title}>{name}</Text>
-        <Text numberOfLines={2}>{description}</Text>
-        <Text>${price}</Text>
+        <Text
+          numberOfLines={2}
+          style={styles.description}
+        >
+          {description}
+        </Text>
+        <Text style={styles.price}>${price}</Text>
       </View>
 
       <Image
@@ -28,7 +33,7 @@ export const MenuItem = ({ item }: MenuItemProps) => {
   );
 };
 
-const styles = StyleSheet.create((_theme) => ({
+const styles = StyleSheet.create((theme) => ({
   container: {
     gap: 12,
     padding: 12,
@@ -41,7 +46,14 @@ const styles = StyleSheet.create((_theme) => ({
     flexShrink: 1,
   },
   title: {
+    color: theme.colors.foreground,
     fontWeight: 600,
+  },
+  description: {
+    color: theme.colors.foreground,
+  },
+  price: {
+    color: theme.colors.foreground,
   },
   image: {
     width: 90,
