@@ -1,149 +1,239 @@
 import { useHeaderHeight } from "@react-navigation/elements";
 import { Checkbox } from "expo-checkbox";
-import { useState } from "react";
-import { Image, Pressable, Text, TextInput, View } from "react-native";
+import { useNavigation } from "expo-router";
+import { useCallback, useState } from "react";
+import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
 import { Container } from "@/components/container";
+import { AvatarPlaceholder } from "../components/avatar-placeholder";
+import { Field } from "../components/field";
 import { authStore } from "../stores/auth";
 
 export default function Profile() {
   const headerHeight = useHeaderHeight();
+  const navigation = useNavigation();
 
-  const [name, setName] = useState(() => {
-    return authStore.get()?.name ?? "";
-  });
-  const [email, setEmail] = useState(() => {
-    return authStore.get()?.email ?? "";
-  });
+  const [name, setName] = useState(() => authStore.get()?.name ?? "");
+  const [email, setEmail] = useState(() => authStore.get()?.email ?? "");
+  const [phone, setPhone] = useState("");
+
+  const [notifyOrderStatus, setNotifyOrderStatus] = useState(true);
+  const [notifyPasswordChange, setNotifyPasswordChange] = useState(true);
+  const [notifyOffers, setNotifyOffers] = useState(true);
+  const [notifyNewsletter, setNotifyNewsletter] = useState(true);
+
+  const hasProfileImage = false;
+
+  const handleSave = useCallback(() => {
+    authStore.save({ name: name.trim(), email: email.trim() });
+    navigation.setOptions({ headerRight: undefined });
+  }, [navigation, name, email]);
+
+  const notifItems = [
+    {
+      label: "Status dos pedidos",
+      value: notifyOrderStatus,
+      setter: setNotifyOrderStatus,
+    },
+    {
+      label: "Mudancas de senha",
+      value: notifyPasswordChange,
+      setter: setNotifyPasswordChange,
+    },
+    {
+      label: "Ofertas especiais",
+      value: notifyOffers,
+      setter: setNotifyOffers,
+    },
+    {
+      label: "Newsletter",
+      value: notifyNewsletter,
+      setter: setNotifyNewsletter,
+    },
+  ];
 
   return (
     <Container safeArea={headerHeight === 0}>
-      <View style={styles.content}>
-        <View style={styles.section}>
-          <Text>Perfil</Text>
-          <View style={{ alignItems: "center", flexDirection: "row" }}>
+      <ScrollView
+        contentContainerStyle={styles.content}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.avatarSection}>
+          {hasProfileImage ? (
             <Image
               source={require("../../assets/images/profile.png")}
-              style={styles.image}
+              style={styles.avatar}
             />
-            <Pressable style={styles.button}>
-              <Text style={styles.buttonText}>Alterar</Text>
-            </Pressable>
-          </View>
+          ) : (
+            <AvatarPlaceholder name={name} />
+          )}
+          <Pressable style={styles.changePhotoButton}>
+            <Text style={styles.changePhotoText}>Alterar foto</Text>
+          </Pressable>
         </View>
 
-        <View style={styles.section}>
-          <Text style={styles.inputLabel}>Nome: </Text>
-          <TextInput
+        <View style={styles.card}>
+          <Field
+            label="Nome"
             value={name}
-            onChangeText={(text) => {
-              setName(text);
-            }}
-            placeholder="John"
-            style={styles.input}
+            onChangeText={setName}
+            placeholder="João Silva"
           />
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.inputLabel}>Email: </Text>
-          <TextInput
+          <View style={styles.divider} />
+          <Field
+            label="Email"
             value={email}
-            onChangeText={(text) => {
-              setEmail(text);
-            }}
-            placeholder="john@example.com"
-            style={styles.input}
+            onChangeText={setEmail}
+            placeholder="joao@email.com"
             keyboardType="email-address"
             autoCapitalize="none"
             autoCorrect={false}
           />
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.inputLabel}>Número: </Text>
-          <TextInput
-            placeholder="55 11 12345 6789"
-            style={styles.input}
+          <View style={styles.divider} />
+          <Field
+            label="Telefone"
+            value={phone}
+            onChangeText={setPhone}
+            placeholder="+55 11 91234-5678"
+            keyboardType="phone-pad"
           />
         </View>
 
-        <View style={styles.section}>
-          <Text style={styles.sectionLabel}>Email notifications</Text>
-          <View style={{ alignItems: "center", flexDirection: "row" }}>
-            <Checkbox style={styles.checkbox} />
-            <Text style={styles.inputLabel}>Status dos pedidos</Text>
-          </View>
-          <View style={{ alignItems: "center", flexDirection: "row" }}>
-            <Checkbox style={styles.checkbox} />
-            <Text style={styles.inputLabel}>Mudanças de senha</Text>
-          </View>
-          <View style={{ alignItems: "center", flexDirection: "row" }}>
-            <Checkbox style={styles.checkbox} />
-            <Text style={styles.inputLabel}>Ofertas especiais</Text>
-          </View>
-          <View style={{ alignItems: "center", flexDirection: "row" }}>
-            <Checkbox style={styles.checkbox} />
-            <Text style={styles.inputLabel}>Newsletter</Text>
-          </View>
+        <Text style={styles.sectionTitle}>Notificacoes por email</Text>
+        <View style={styles.card}>
+          {notifItems.map(({ label, value, setter }, index) => (
+            <View key={label}>
+              <Pressable
+                style={styles.checkboxRow}
+                onPress={() => setter(!value)}
+              >
+                <Checkbox
+                  value={value}
+                  onValueChange={setter}
+                  style={styles.checkbox}
+                />
+                <Text style={styles.checkboxLabel}>{label}</Text>
+              </Pressable>
+              {index < notifItems.length - 1 && <View style={styles.divider} />}
+            </View>
+          ))}
         </View>
-      </View>
+
+        <Pressable
+          style={({ pressed }) => [
+            styles.saveButton,
+            pressed && styles.saveButtonPressed,
+          ]}
+          onPress={handleSave}
+        >
+          <Text style={styles.saveButtonText}>Salvar alterações</Text>
+        </Pressable>
+      </ScrollView>
     </Container>
   );
 }
 
 const styles = StyleSheet.create((theme) => ({
   content: {
-    alignItems: "center",
-    flex: 1,
-    justifyContent: "space-between",
-    padding: 12,
-    backgroundColor: theme.colors.background,
+    padding: 16,
+    gap: 20,
+    flexGrow: 1,
   },
-  button: {
-    minHeight: 42,
-    minWidth: 120,
-    borderRadius: 8,
+  avatarSection: {
+    alignItems: "center",
+    gap: 10,
     paddingVertical: 8,
-    alignItems: "center",
-    paddingHorizontal: 12,
-    alignSelf: "flex-end",
-    justifyContent: "center",
-    backgroundColor: theme.colors.primary,
   },
-  buttonText: {
-    fontSize: 14,
-    fontWeight: 600,
+  avatar: {
+    width: 96,
+    height: 96,
+    borderRadius: 48,
+    objectFit: "cover",
+  },
+  avatarPlaceholder: {
+    width: 96,
+    height: 96,
+    borderRadius: 48,
+    backgroundColor: theme.colors.primary,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  avatarInitials: {
     color: theme.colors.primaryForeground,
+    fontSize: 32,
+    fontWeight: "700",
+    letterSpacing: 1,
+  },
+  changePhotoButton: {
+    paddingHorizontal: 16,
+    paddingVertical: 6,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: theme.colors.primary,
+  },
+  changePhotoText: {
+    color: theme.colors.primary,
+    fontSize: 13,
+    fontWeight: "500",
+  },
+  card: {
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    overflow: "hidden",
+    backgroundColor: theme.colors.card,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: theme.colors.border,
+    marginHorizontal: 14,
+  },
+  checkboxRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    paddingHorizontal: 14,
+    paddingVertical: 14,
   },
   checkbox: {
-    marginRight: 8,
+    borderRadius: 4,
   },
-  image: {
-    alignSelf: "center",
-    borderRadius: "100%",
-    height: 120,
-    objectFit: "contain",
-    width: 120,
-  },
-  input: {
-    borderColor: theme.colors.border,
-    borderRadius: 8,
-    borderWidth: 1,
+  checkboxLabel: {
     color: theme.colors.foreground,
-    opacity: 0.6,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    width: "100%",
-  },
-  inputLabel: {
-    color: theme.colors.foreground,
-    fontSize: 14,
-  },
-  sectionLabel: {
     fontSize: 15,
   },
-  section: {
-    gap: 4,
-    width: "100%",
+  saveButton: {
+    backgroundColor: theme.colors.primary,
+    borderRadius: 10,
+    paddingVertical: 14,
+    alignItems: "center",
+  },
+  saveButtonPressed: {
+    opacity: 0.7,
+  },
+  saveButtonText: {
+    color: theme.colors.primaryForeground,
+    fontSize: 15,
+    fontWeight: "600",
+  },
+  headerSaveButton: {
+    paddingHorizontal: 4,
+  },
+  headerSaveText: {
+    color: theme.colors.primary,
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  sectionTitle: {
+    color: theme.colors.foreground,
+    fontSize: 11,
+    fontWeight: "600",
+    letterSpacing: 0.8,
+    opacity: 0.45,
+    textTransform: "uppercase",
+    paddingHorizontal: 4,
+    marginTop: 8,
+    marginBottom: 2,
   },
 }));
