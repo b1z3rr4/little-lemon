@@ -98,6 +98,8 @@ function RootLayoutNav() {
               options={{
                 title: "Informações Pessoais",
                 headerBackVisible: true,
+                headerBackTitle: "",
+                headerBackButtonDisplayMode: "minimal",
               }}
             />
           </Stack>
