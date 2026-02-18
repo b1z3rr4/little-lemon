@@ -8,8 +8,8 @@ import { StyleSheet } from "react-native-unistyles";
 import { Container } from "@/components/container";
 import { AvatarPlaceholder } from "../components/avatar-placeholder";
 import { Field } from "../components/field";
+import { usePreferences } from "../hooks/use-preferences";
 import { useUser } from "../hooks/use-user";
-import { mmkvStorage } from "../lib/mmkvStorage";
 
 export default function Profile() {
   const headerHeight = useHeaderHeight();
@@ -28,15 +28,34 @@ export default function Profile() {
     setPhone: savePhone,
   } = useUser();
 
+  const {
+    notifyNewsletter: defaultNotifyNewsletter,
+    notifyOffers: defaultNotifyOffers,
+    notifyOrderStatus: defaultNotifyOrderStatus,
+    notifyPasswordChange: defaultNotifyPasswordChange,
+    setNotifyNewsletter: saveNotifyNewsletter,
+    setNotifyOffers: saveNotifyOffers,
+    setNotifyOrderStatus: saveNotifyOrderStatus,
+    setNotifyPasswordChange: saveNotifyPasswordChange,
+  } = usePreferences();
+
   const [name, setName] = useState(defaultName);
   const [email, setEmail] = useState(defaultEmail);
   const [phone, setPhone] = useState(defaultPhone);
   const [profile, setProfile] = useState(defatulImage);
 
-  const [notifyOrderStatus, setNotifyOrderStatus] = useState(true);
-  const [notifyPasswordChange, setNotifyPasswordChange] = useState(true);
-  const [notifyOffers, setNotifyOffers] = useState(true);
-  const [notifyNewsletter, setNotifyNewsletter] = useState(true);
+  const [notifyOrderStatus, setNotifyOrderStatus] = useState(
+    defaultNotifyOrderStatus === "true"
+  );
+  const [notifyPasswordChange, setNotifyPasswordChange] = useState(
+    defaultNotifyPasswordChange === "true"
+  );
+  const [notifyOffers, setNotifyOffers] = useState(
+    defaultNotifyOffers === "true"
+  );
+  const [notifyNewsletter, setNotifyNewsletter] = useState(
+    defaultNotifyNewsletter === "true"
+  );
 
   const hasProfileImage = !!profile?.length;
 
@@ -47,16 +66,28 @@ export default function Profile() {
     saveName(name);
     saveProfile(profile);
     savePhone(phone);
+    saveNotifyNewsletter(notifyNewsletter.toString());
+    saveNotifyOffers(notifyOffers.toString());
+    saveNotifyOrderStatus(notifyOrderStatus.toString());
+    saveNotifyPasswordChange(notifyPasswordChange.toString());
   }, [
     navigation,
     name,
     email,
     profile,
     phone,
+    notifyOffers,
+    notifyNewsletter,
+    notifyOrderStatus,
+    notifyPasswordChange,
     savePhone,
     saveEmail,
     saveName,
     saveProfile,
+    saveNotifyOffers,
+    saveNotifyNewsletter,
+    saveNotifyOrderStatus,
+    saveNotifyPasswordChange,
   ]);
 
   const handlePickImage = useCallback(async () => {
@@ -154,8 +185,8 @@ export default function Profile() {
                 onPress={() => setter(!value)}
               >
                 <Checkbox
-                  value={value}
                   onValueChange={setter}
+                  value={value}
                   style={styles.checkbox}
                 />
                 <Text style={styles.checkboxLabel}>{label}</Text>

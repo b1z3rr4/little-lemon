@@ -8,10 +8,7 @@ export function useUser() {
   const [phone, setPhone] = useMMKVString("userPhone", storage);
 
   function logout() {
-    storage.remove("userName");
-    storage.remove("userImage");
-    storage.remove("userEmail");
-    storage.remove("userPhone");
+    storage.clearAll();
   }
 
   function login({ name, email }: { name: string; email: string }) {
