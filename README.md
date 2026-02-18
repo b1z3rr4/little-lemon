@@ -87,7 +87,7 @@ bun run clean     # Limpar cache do Metro
 
 ## 🎓 Sobre o curso
 
-Este projeto é o capstone da especialização [React Native da Meta](https://www.coursera.org/professional-certificates/meta-react-native-developer) no Coursera. O objetivo é consolidar os conhecimentos adquiridos ao longo da especialização construindo um app completo do zero — cobrindo navegação, consumo de API, persistência de dados, formulários e identidade visual.
+Este projeto é o capstone da especialização [React Native da Meta](https://www.coursera.org/specializations/meta-react-native) no Coursera. O objetivo é consolidar os conhecimentos adquiridos ao longo da especialização construindo um app completo do zero — cobrindo navegação, consumo de API, persistência de dados, formulários e identidade visual.
 
 ---
 
