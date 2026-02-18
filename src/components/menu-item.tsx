@@ -1,7 +1,7 @@
 import { Image, Text, View } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
-import { appEnvs } from "../config/envs";
-import type { Dish } from "../interfaces/dish";
+import { appEnvs } from "@/config/envs";
+import type { Dish } from "@/interfaces/dish";
 
 interface MenuItemProps {
   item: Dish;

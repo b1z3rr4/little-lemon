@@ -1,5 +1,5 @@
 import { useMMKVString } from "react-native-mmkv";
-import { storage } from "../lib/mmkvStorage";
+import { storage } from "@/lib/mmkvStorage";
 
 export function useUser() {
   const [name, setName] = useMMKVString("userName", storage);
@@ -22,7 +22,7 @@ export function useUser() {
       image,
       email,
       phone,
-      signedIn: name?.length && email?.length,
+      signedIn: !!name?.length && !!email?.length,
     },
     setName,
     setImage,

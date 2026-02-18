@@ -1,5 +1,5 @@
-import type { Dish } from "../interfaces/dish";
-import { buildQueryWithFilters } from "../utils/build-query-filter";
+import type { Dish } from "@/interfaces/dish";
+import { buildQueryWithFilters } from "@/utils/build-query-filter";
 import { getDatabase } from ".";
 import type { DatabaseActions, ModelReturn } from "./interface";
 

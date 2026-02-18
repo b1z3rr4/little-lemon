@@ -1,5 +1,5 @@
 import { useMMKVString } from "react-native-mmkv";
-import { storage } from "../lib/mmkvStorage";
+import { storage } from "@/lib/mmkvStorage";
 
 export function usePreferences() {
   const [notifyOrderStatus, setNotifyOrderStatus] = useMMKVString(

@@ -1,4 +1,4 @@
-import type { Filter } from "../utils/build-query-filter";
+import type { Filter } from "@/utils/build-query-filter";
 
 export type ModelReturn<T> = T & {
   id: string;
