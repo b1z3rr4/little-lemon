@@ -1,10 +1,10 @@
 import { useRouter } from "expo-router";
 import { Image, Pressable, Text, View } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
+import { AvatarPlaceholder } from "@/components/avatar-placeholder";
 import { Container } from "@/components/container";
-import { AvatarPlaceholder } from "../../components/avatar-placeholder";
-import { SettingsRow, SettingsSection } from "../../components/section";
-import { useUser } from "../../hooks/use-user";
+import { SettingsRow, SettingsSection } from "@/components/section";
+import { useUser } from "@/hooks/use-user";
 
 export default function TabTwoScreen() {
   const router = useRouter();

@@ -5,11 +5,11 @@ import { useNavigation } from "expo-router";
 import { useCallback, useState } from "react";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
+import { AvatarPlaceholder } from "@/components/avatar-placeholder";
 import { Container } from "@/components/container";
-import { AvatarPlaceholder } from "../components/avatar-placeholder";
-import { Field } from "../components/field";
-import { usePreferences } from "../hooks/use-preferences";
-import { useUser } from "../hooks/use-user";
+import { Field } from "@/components/field";
+import { usePreferences } from "@/hooks/use-preferences";
+import { useUser } from "@/hooks/use-user";
 
 export default function Profile() {
   const headerHeight = useHeaderHeight();

@@ -3,13 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { FlatList, Pressable, Text, View } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
-import { Container } from "../../components/container";
-import { MenuItem } from "../../components/menu-item";
-import { SearchBar } from "../../components/search-bar";
-import { appEnvs } from "../../config/envs";
-import { CATEGORIES, dishes } from "../../database/dishes";
-import type { Dish } from "../../interfaces/dish";
-import type { Filter } from "../../utils/build-query-filter";
+import { Container } from "@/components/container";
+import { MenuItem } from "@/components/menu-item";
+import { SearchBar } from "@/components/search-bar";
+import { appEnvs } from "@/config/envs";
+import { CATEGORIES, dishes } from "@/database/dishes";
+import type { Dish } from "@/interfaces/dish";
+import type { Filter } from "@/utils/build-query-filter";
 
 export default function Home() {
   const headerHeight = useHeaderHeight();

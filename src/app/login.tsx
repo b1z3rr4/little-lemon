@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 import { Image, Pressable, Text, TextInput, View } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
 import { Container } from "@/components/container";
-import { useUser } from "../hooks/use-user";
+import { useUser } from "@/hooks/use-user";
 
 export default function Login() {
   const headerHeight = useHeaderHeight();

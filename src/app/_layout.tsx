@@ -14,7 +14,7 @@ import {
   useUnistyles,
   withUnistyles,
 } from "react-native-unistyles";
-import { initDatabase } from "../database";
+import { initDatabase } from "@/database";
 
 const ThemedGestureHandlerRootView = withUnistyles(GestureHandlerRootView);
 

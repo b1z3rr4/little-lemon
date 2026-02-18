@@ -2,7 +2,7 @@ import { Link, Redirect } from "expo-router";
 import { Image, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet } from "react-native-unistyles";
-import { useUser } from "../hooks/use-user";
+import { useUser } from "@/hooks/use-user";
 
 export default function Onboarding() {
   const {
