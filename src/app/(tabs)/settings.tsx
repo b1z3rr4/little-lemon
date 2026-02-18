@@ -81,20 +81,6 @@ const styles = StyleSheet.create((theme) => ({
     borderRadius: 30,
     objectFit: "cover",
   },
-  avatarPlaceholder: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: theme.colors.primary,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  avatarInitials: {
-    color: theme.colors.primaryForeground,
-    fontSize: 20,
-    fontWeight: "700",
-    letterSpacing: 1,
-  },
   profileInfo: {
     flex: 1,
     gap: 2,

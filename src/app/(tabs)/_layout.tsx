@@ -3,6 +3,7 @@ import { Tabs } from "expo-router";
 import type React from "react";
 import { Image } from "react-native";
 import { useUnistyles } from "react-native-unistyles";
+import { ProfileLink } from "@/components/profile-link";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 function TabBarIcon(
@@ -53,6 +54,7 @@ export default function TabLayout() {
               source={require("../../../assets/images/logo-in-line.png")}
             />
           ),
+          headerRight: () => <ProfileLink />,
           tabBarIcon: ({ color }) => (
             <TabBarIcon
               solid
