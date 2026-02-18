@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { FlatList, Pressable, Text, View } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
 import { Container } from "@/components/container";
+import { HeroBanner } from "@/components/hero-banner";
 import { MenuItem } from "@/components/menu-item";
 import { SearchBar } from "@/components/search-bar";
 import { appEnvs } from "@/config/envs";
@@ -78,6 +79,8 @@ export default function Home() {
   return (
     <Container safeArea={headerHeight === 0}>
       <View style={styles.container}>
+        <HeroBanner />
+
         <SearchBar
           value={searchText}
           onChangeText={setSearchText}
@@ -126,7 +129,7 @@ const styles = StyleSheet.create((theme) => ({
     backgroundColor: theme.colors.primary,
   },
   chipActive: {
-    backgroundColor: theme.colors.success,
+    backgroundColor: theme.colors.mutedForeground,
   },
   chipText: {
     color: theme.colors.primaryForeground,

@@ -10,7 +10,7 @@ export default function Onboarding() {
   } = useUser();
 
   if (signedIn) {
-    return <Redirect href="/(tabs)" />;
+    return <Redirect href="/(tabs)/home" />;
   }
 
   return (
