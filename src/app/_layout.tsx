@@ -91,7 +91,7 @@ function RootLayoutNav() {
             />
             <Stack.Screen
               name="login"
-              options={{ headerShown: false }}
+              options={{ headerShown: false, title: "Entrar" }}
             />
             <Stack.Screen
               name="profile"

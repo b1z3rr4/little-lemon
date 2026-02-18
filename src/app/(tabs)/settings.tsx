@@ -60,6 +60,7 @@ export default function TabTwoScreen() {
           ]}
           onPress={() => {
             logout();
+            router.dismissAll();
             router.replace("/");
           }}
         >

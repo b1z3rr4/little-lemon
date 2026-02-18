@@ -21,7 +21,7 @@ export default function Login() {
   const handleSubmit = useCallback(() => {
     if (!submitDisabled) {
       login({ name, email });
-      router.navigate("/(tabs)");
+      router.navigate("/(tabs)/home");
     }
   }, [name, email, submitDisabled, router, login]);
 
