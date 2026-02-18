@@ -30,7 +30,7 @@ const styles = StyleSheet.create((theme, rt) => ({
   },
   content: {
     flex: 1,
-    backgroundColor: theme.colors.background,
     paddingBottom: rt.insets.bottom,
+    backgroundColor: theme.colors.background,
   },
 }));
