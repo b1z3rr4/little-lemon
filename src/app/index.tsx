@@ -5,9 +5,11 @@ import { StyleSheet } from "react-native-unistyles";
 import { useUser } from "../hooks/use-user";
 
 export default function Onboarding() {
-  const { user } = useUser();
+  const {
+    user: { signedIn },
+  } = useUser();
 
-  if (user?.name) {
+  if (signedIn) {
     return <Redirect href="/(tabs)" />;
   }
 
@@ -28,7 +30,7 @@ export default function Onboarding() {
 
         <Link
           asChild
-          href={user?.name ? "/(tabs)" : "/login"}
+          href={"/login"}
         >
           <Pressable style={styles.button}>
             <Text style={styles.buttonText}>Entrar</Text>
@@ -40,20 +42,22 @@ export default function Onboarding() {
 }
 
 const styles = StyleSheet.create((theme) => ({
-  container: { flex: 1, backgroundColor: "#495E57" },
+  container: { flex: 1, backgroundColor: theme.colors.primary },
   content: {
     flex: 1,
     padding: 48,
     alignItems: "center",
-    backgroundColor: "#495E57",
+    backgroundColor: theme.colors.primary,
     justifyContent: "space-between",
   },
   title: {
     fontSize: 52,
     fontWeight: 700,
+    color: theme.colors.secondary,
   },
   subtitle: {
     fontSize: 24,
+    color: theme.colors.primaryForeground,
   },
   image: {
     width: 500,
@@ -68,11 +72,11 @@ const styles = StyleSheet.create((theme) => ({
     alignItems: "center",
     paddingHorizontal: 12,
     justifyContent: "center",
-    backgroundColor: theme.colors.primary,
+    backgroundColor: theme.colors.secondary,
   },
   buttonText: {
     fontSize: 14,
     fontWeight: 600,
-    color: theme.colors.primaryForeground,
+    color: theme.colors.secondaryForeground,
   },
 }));

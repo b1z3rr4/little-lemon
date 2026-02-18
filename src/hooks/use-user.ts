@@ -22,6 +22,7 @@ export function useUser() {
       image,
       email,
       phone,
+      signedIn: name?.length && email?.length,
     },
     setName,
     setImage,
