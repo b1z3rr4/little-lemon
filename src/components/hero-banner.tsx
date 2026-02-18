@@ -3,31 +3,31 @@ import { Animated, Image, Text, View } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
 
 export const HeroBanner = () => {
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-  const slideAnim = useRef(new Animated.Value(20)).current;
-  const scaleAnim = useRef(new Animated.Value(0.92)).current;
+  const fadeAnim = useRef(new Animated.Value(0));
+  const slideAnim = useRef(new Animated.Value(20));
+  const scaleAnim = useRef(new Animated.Value(0.92));
 
   useEffect(() => {
     Animated.parallel([
-      Animated.timing(fadeAnim, {
+      Animated.timing(fadeAnim.current, {
         toValue: 1,
         duration: 600,
         useNativeDriver: true,
       }),
-      Animated.spring(slideAnim, {
+      Animated.spring(slideAnim.current, {
         toValue: 0,
         tension: 80,
         friction: 10,
         useNativeDriver: true,
       }),
-      Animated.spring(scaleAnim, {
+      Animated.spring(scaleAnim.current, {
         toValue: 1,
         tension: 80,
         friction: 10,
         useNativeDriver: true,
       }),
     ]).start();
-  }, [fadeAnim, slideAnim, scaleAnim]);
+  }, []);
 
   return (
     <View style={styles.wrapper}>
@@ -36,7 +36,10 @@ export const HeroBanner = () => {
       <Animated.View
         style={[
           styles.content,
-          { opacity: fadeAnim, transform: [{ translateY: slideAnim }] },
+          {
+            opacity: fadeAnim.current,
+            transform: [{ translateY: slideAnim.current }],
+          },
         ]}
       >
         <View style={styles.heroRow}>
@@ -50,7 +53,10 @@ export const HeroBanner = () => {
           </View>
 
           <Animated.View
-            style={[styles.imageCard, { transform: [{ scale: scaleAnim }] }]}
+            style={[
+              styles.imageCard,
+              { transform: [{ scale: scaleAnim.current }] },
+            ]}
           >
             <Image
               source={require("../../assets/images/hero.png")}

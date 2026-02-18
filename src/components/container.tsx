@@ -23,14 +23,13 @@ export function Container({
   return <Animated.View style={styles.content}>{children}</Animated.View>;
 }
 
-const styles = StyleSheet.create((theme, rt) => ({
+const styles = StyleSheet.create((theme) => ({
   container: {
-    backgroundColor: theme.colors.background,
     flex: 1,
+    backgroundColor: theme.colors.background,
   },
   content: {
     flex: 1,
-    paddingBottom: rt.insets.bottom,
     backgroundColor: theme.colors.background,
   },
 }));

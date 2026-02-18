@@ -45,6 +45,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="home"
         options={{
+          headerShown: false,
           tabBarIcon: ({ color }) => (
             <TabBarIcon
               solid

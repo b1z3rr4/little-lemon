@@ -85,7 +85,8 @@ export default function Home() {
           value={searchText}
           onChangeText={setSearchText}
         />
-        <View>
+
+        <View style={{ height: "auto" }}>
           <FlatList
             horizontal
             data={CATEGORIES}
@@ -115,11 +116,13 @@ const styles = StyleSheet.create((theme) => ({
   container: {
     flex: 1,
     gap: 12,
-    padding: 12,
+    paddingTop: 12,
+    paddingHorizontal: 12,
     backgroundColor: theme.colors.background,
   },
   chip: {
     margin: 4,
+    height: 32,
     borderRadius: 24,
     paddingVertical: 8,
     alignItems: "center",
