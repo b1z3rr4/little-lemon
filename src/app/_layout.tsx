@@ -8,6 +8,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { QueryProvider } from "@/providers/query-provider";
 import "react-native-reanimated";
+import { Image } from "react-native";
 import {
   StyleSheet,
   UnistylesRuntime,
@@ -80,14 +81,10 @@ function RootLayoutNav() {
             }}
           >
             <Stack.Screen
-              name="(tabs)"
+              name="index"
               options={{
                 headerShown: false,
               }}
-            />
-            <Stack.Screen
-              name="index"
-              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="login"
@@ -100,6 +97,12 @@ function RootLayoutNav() {
                 headerBackVisible: true,
                 headerBackTitle: "",
                 headerBackButtonDisplayMode: "minimal",
+              }}
+            />
+            <Stack.Screen
+              name="(tabs)"
+              options={{
+                headerShown: false,
               }}
             />
           </Stack>

@@ -1,12 +1,15 @@
+import { useHeaderHeight } from "@react-navigation/elements";
 import { useRouter } from "expo-router";
 import { Image, Pressable, Text, View } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
 import { AvatarPlaceholder } from "@/components/avatar-placeholder";
 import { Container } from "@/components/container";
 import { SettingsRow, SettingsSection } from "@/components/section";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { useUser } from "@/hooks/use-user";
 
 export default function TabTwoScreen() {
+  const headerHeight = useHeaderHeight();
   const router = useRouter();
 
   const {
@@ -15,7 +18,7 @@ export default function TabTwoScreen() {
   } = useUser();
 
   return (
-    <Container>
+    <Container safeArea={headerHeight === 0}>
       <View style={styles.content}>
         <View style={styles.profileCard}>
           {image?.length ? (

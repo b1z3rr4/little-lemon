@@ -1,6 +1,7 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import type React from "react";
+import { Image } from "react-native";
 import { useUnistyles } from "react-native-unistyles";
 import { ThemeToggle } from "@/components/theme-toggle";
 
@@ -45,7 +46,13 @@ export default function TabLayout() {
       <Tabs.Screen
         name="home"
         options={{
-          headerShown: false,
+          headerTitle: () => (
+            <Image
+              resizeMode="contain"
+              style={{ width: 120, height: 40 }}
+              source={require("../../../assets/images/logo-in-line.png")}
+            />
+          ),
           tabBarIcon: ({ color }) => (
             <TabBarIcon
               solid
@@ -66,7 +73,7 @@ export default function TabLayout() {
               color={color}
             />
           ),
-          title: "Perfil",
+          title: "Configurações",
         }}
       />
     </Tabs>
