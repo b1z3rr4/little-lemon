@@ -1,3 +1,5 @@
+import type { Filter } from "../utils/build-query-filter";
+
 export type ModelReturn<T> = T & {
   id: string;
 };
@@ -9,5 +11,5 @@ export interface DatabaseActions<T> {
   insert: (data: T) => ModelReturn<T>;
   deleteAll: () => boolean;
   deleteById: (id: string) => boolean;
-  getByFilters: (field: string, search: string[]) => ModelReturn<T>[];
+  getByFilters: (filters: Filter[]) => ModelReturn<T>[];
 }

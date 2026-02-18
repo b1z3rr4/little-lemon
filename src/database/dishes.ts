@@ -1,4 +1,5 @@
 import type { Dish } from "../interfaces/dish";
+import { buildQueryWithFilters } from "../utils/build-query-filter";
 import { getDatabase } from ".";
 import type { DatabaseActions, ModelReturn } from "./interface";
 
@@ -20,15 +21,15 @@ export const dishes: Pick<
     const result = db.getAllSync<ModelReturn<Dish>>("SELECT * FROM dishes;");
     return result;
   },
-  getByFilters: (field, searches) => {
+  getByFilters: (filters) => {
     const db = getDatabase();
 
-    const placeholders = searches.map(() => "?").join(",");
-
-    const result = db.getAllSync<ModelReturn<Dish>>(
-      `SELECT * FROM dishes WHERE ${field} IN (${placeholders})`,
-      searches
+    const { query, params } = buildQueryWithFilters(
+      "SELECT * FROM dishes",
+      filters
     );
+
+    const result = db.getAllSync<ModelReturn<Dish>>(query, params);
 
     return result;
   },

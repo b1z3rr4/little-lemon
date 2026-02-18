@@ -1,5 +1,6 @@
 import { FontAwesome5 } from "@expo/vector-icons";
-import { StyleSheet, TextInput, View } from "react-native";
+import { TextInput, View } from "react-native";
+import { StyleSheet } from "react-native-unistyles";
 
 type SearchBarProps = {
   value: string;
@@ -31,22 +32,24 @@ export function SearchBar({
   );
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create((theme) => ({
   container: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#f2f2f2",
+    borderWidth: 1,
     borderRadius: 12,
-    paddingHorizontal: 12,
     paddingVertical: 10,
+    alignItems: "center",
+    flexDirection: "row",
+    paddingHorizontal: 12,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.background,
   },
   icon: {
     marginRight: 8,
-    color: "#555",
+    color: theme.colors.foreground,
   },
   input: {
     flex: 1,
     fontSize: 16,
-    color: "#000",
+    color: theme.colors.foreground,
   },
-});
+}));

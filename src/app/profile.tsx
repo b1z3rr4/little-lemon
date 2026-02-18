@@ -140,7 +140,7 @@ export default function Profile() {
             label="Telefone"
             value={phone ?? ""}
             onChangeText={setPhone}
-            placeholder="+55 11 91234-5678"
+            placeholder="+55 00 00000-0000"
             keyboardType="phone-pad"
           />
         </View>

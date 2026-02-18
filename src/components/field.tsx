@@ -25,13 +25,13 @@ export const Field = ({
       <Text style={styles.fieldLabel}>{label}</Text>
       <TextInput
         value={value}
-        onChangeText={onChangeText}
+        editable={editable}
         placeholder={placeholder}
-        placeholderTextColor={styles.input.color + "55"}
+        autoCorrect={autoCorrect}
+        onChangeText={onChangeText}
         keyboardType={keyboardType}
         autoCapitalize={autoCapitalize}
-        autoCorrect={autoCorrect}
-        editable={editable}
+        placeholderTextColor="#33333355"
         style={[styles.input, !editable && styles.inputDisabled]}
       />
     </View>

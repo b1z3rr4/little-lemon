@@ -5,14 +5,17 @@ import { FlatList, Pressable, Text, View } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
 import { Container } from "../../components/container";
 import { MenuItem } from "../../components/menu-item";
+import { SearchBar } from "../../components/search-bar";
 import { appEnvs } from "../../config/envs";
 import { CATEGORIES, dishes } from "../../database/dishes";
 import type { Dish } from "../../interfaces/dish";
+import type { Filter } from "../../utils/build-query-filter";
 
 export default function Home() {
   const headerHeight = useHeaderHeight();
 
   const [searches, setSearches] = useState<string[]>([]);
+  const [searchText, setSearchText] = useState("");
 
   const { data } = useQuery<{ menu: Dish[] }>({
     queryKey: ["dishes"],
@@ -27,9 +30,24 @@ export default function Home() {
   });
 
   const dishesData = useMemo(() => {
-    if (!searches.length) return dishes.getAll();
-    return dishes.getByFilters("category", searches);
-  }, [searches]);
+    if (!searches.length && !searchText.length) return dishes.getAll();
+
+    const filters: Filter[] = [];
+
+    if (searches.length) {
+      filters.push({ field: "category", operator: "IN", value: searches });
+    }
+
+    if (searchText.length) {
+      filters.push({
+        field: "name",
+        operator: "LIKE",
+        value: `%${searchText}%`,
+      });
+    }
+
+    return dishes.getByFilters(filters);
+  }, [searches, searchText]);
 
   const handleFilter = useCallback(
     (value: string) => {
@@ -60,6 +78,10 @@ export default function Home() {
   return (
     <Container safeArea={headerHeight === 0}>
       <View style={styles.container}>
+        <SearchBar
+          value={searchText}
+          onChangeText={setSearchText}
+        />
         <View>
           <FlatList
             horizontal
@@ -89,6 +111,7 @@ export default function Home() {
 const styles = StyleSheet.create((theme) => ({
   container: {
     flex: 1,
+    gap: 12,
     padding: 12,
     backgroundColor: theme.colors.background,
   },

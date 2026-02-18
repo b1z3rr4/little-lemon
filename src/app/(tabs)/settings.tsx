@@ -60,7 +60,7 @@ export default function TabTwoScreen() {
           ]}
           onPress={() => {
             logout();
-            router.replace("/login");
+            router.replace("/");
           }}
         >
           <Text style={styles.logoutText}>Sair da conta</Text>
