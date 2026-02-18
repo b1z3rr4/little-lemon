@@ -64,7 +64,7 @@ export default function TabLayout() {
               color={color}
             />
           ),
-          title: "Settings",
+          title: "Perfil",
         }}
       />
     </Tabs>

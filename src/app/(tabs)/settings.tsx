@@ -34,7 +34,7 @@ export default function TabTwoScreen() {
 
         <SettingsSection title="Conta">
           <SettingsRow
-            label="Meu Perfil"
+            label="Informações pessoais"
             onPress={() => {
               router.push("/profile");
             }}

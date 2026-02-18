@@ -31,7 +31,7 @@ export const Field = ({
         onChangeText={onChangeText}
         keyboardType={keyboardType}
         autoCapitalize={autoCapitalize}
-        placeholderTextColor="#33333355"
+        placeholderTextColor={styles.input.color + "45"}
         style={[styles.input, !editable && styles.inputDisabled]}
       />
     </View>
@@ -47,7 +47,7 @@ const styles = StyleSheet.create((theme) => ({
   fieldLabel: {
     color: theme.colors.foreground,
     fontSize: 11,
-    fontWeight: "600",
+    fontWeight: 600,
     letterSpacing: 0.6,
     opacity: 0.45,
     textTransform: "uppercase",

@@ -1,9 +1,7 @@
-import { useHeaderHeight } from "@react-navigation/elements";
 import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { FlatList, Pressable, Text, View } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
-import { Container } from "../../components/container";
 import { MenuItem } from "../../components/menu-item";
 import { SearchBar } from "../../components/search-bar";
 import { appEnvs } from "../../config/envs";
@@ -12,8 +10,6 @@ import type { Dish } from "../../interfaces/dish";
 import type { Filter } from "../../utils/build-query-filter";
 
 export default function Home() {
-  const headerHeight = useHeaderHeight();
-
   const [searches, setSearches] = useState<string[]>([]);
   const [searchText, setSearchText] = useState("");
 
@@ -76,35 +72,33 @@ export default function Home() {
   }, [data]);
 
   return (
-    <Container safeArea={headerHeight === 0}>
-      <View style={styles.container}>
-        <SearchBar
-          value={searchText}
-          onChangeText={setSearchText}
-        />
-        <View>
-          <FlatList
-            horizontal
-            data={CATEGORIES}
-            renderItem={(item) => (
-              <Pressable
-                style={[styles.chip, isActive(item.item) && styles.chipActive]}
-                onPress={() => {
-                  handleFilter(item.item);
-                }}
-              >
-                <Text style={styles.chipText}>{item.item}</Text>
-              </Pressable>
-            )}
-          />
-        </View>
-
+    <View style={styles.container}>
+      <SearchBar
+        value={searchText}
+        onChangeText={setSearchText}
+      />
+      <View>
         <FlatList
-          data={dishesData ?? []}
-          renderItem={(item) => <MenuItem item={item.item} />}
+          horizontal
+          data={CATEGORIES}
+          renderItem={(item) => (
+            <Pressable
+              style={[styles.chip, isActive(item.item) && styles.chipActive]}
+              onPress={() => {
+                handleFilter(item.item);
+              }}
+            >
+              <Text style={styles.chipText}>{item.item}</Text>
+            </Pressable>
+          )}
         />
       </View>
-    </Container>
+
+      <FlatList
+        data={dishesData ?? []}
+        renderItem={(item) => <MenuItem item={item.item} />}
+      />
+    </View>
   );
 }
 
