@@ -4,32 +4,31 @@ import { StyleSheet } from "react-native-unistyles";
 import { Container } from "@/components/container";
 import { AvatarPlaceholder } from "../../components/avatar-placeholder";
 import { SettingsRow, SettingsSection } from "../../components/section";
-import { authStore } from "../../stores/auth";
+import { useUser } from "../../hooks/use-user";
 
 export default function TabTwoScreen() {
   const router = useRouter();
 
-  const hasProfileImage = false;
-
-  const authData = authStore.get();
-  const userName = authData?.name ?? "";
-  const userEmail = authData?.email ?? "";
+  const {
+    user: { name, email, image },
+    logout,
+  } = useUser();
 
   return (
     <Container>
       <View style={styles.content}>
         <View style={styles.profileCard}>
-          {hasProfileImage ? (
+          {image?.length ? (
             <Image
-              source={require("../../../assets/images/profile.png")}
+              source={{ uri: image }}
               style={styles.avatar}
             />
           ) : (
-            <AvatarPlaceholder name={userName} />
+            <AvatarPlaceholder name={name ?? ""} />
           )}
           <View style={styles.profileInfo}>
-            <Text style={styles.profileName}>{userName || "Usuário"}</Text>
-            <Text style={styles.profileEmail}>{userEmail || "—"}</Text>
+            <Text style={styles.profileName}>{name || "Usuário"}</Text>
+            <Text style={styles.profileEmail}>{email || "—"}</Text>
           </View>
         </View>
 
@@ -60,7 +59,7 @@ export default function TabTwoScreen() {
             pressed && styles.logoutButtonPressed,
           ]}
           onPress={() => {
-            authStore.delete();
+            logout();
             router.replace("/login");
           }}
         >

@@ -4,12 +4,14 @@ import { useCallback, useState } from "react";
 import { Image, Pressable, Text, TextInput, View } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
 import { Container } from "@/components/container";
-import { authStore } from "../stores/auth";
+import { useUser } from "../hooks/use-user";
 
 export default function Login() {
   const headerHeight = useHeaderHeight();
 
   const router = useRouter();
+
+  const { login } = useUser();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -18,10 +20,10 @@ export default function Login() {
 
   const handleSubmit = useCallback(() => {
     if (!submitDisabled) {
-      authStore.save({ name, email });
+      login({ name, email });
       router.navigate("/(tabs)");
     }
-  }, [name, email, submitDisabled, router]);
+  }, [name, email, submitDisabled, router, login]);
 
   return (
     <Container safeArea={headerHeight === 0}>

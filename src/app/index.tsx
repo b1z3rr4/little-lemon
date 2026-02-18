@@ -1,11 +1,15 @@
-import { Link } from "expo-router";
+import { Link, Redirect } from "expo-router";
 import { Image, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet } from "react-native-unistyles";
-import { authStore } from "../stores/auth";
+import { useUser } from "../hooks/use-user";
 
 export default function Onboarding() {
-  const authData = authStore.get();
+  const { user } = useUser();
+
+  if (user?.name) {
+    return <Redirect href="/(tabs)" />;
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -24,7 +28,7 @@ export default function Onboarding() {
 
         <Link
           asChild
-          href={authData?.name ? "/(tabs)" : "/login"}
+          href={user?.name ? "/(tabs)" : "/login"}
         >
           <Pressable style={styles.button}>
             <Text style={styles.buttonText}>Entrar</Text>

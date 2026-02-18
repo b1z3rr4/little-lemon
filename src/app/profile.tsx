@@ -1,5 +1,6 @@
 import { useHeaderHeight } from "@react-navigation/elements";
 import { Checkbox } from "expo-checkbox";
+import * as ImagePicker from "expo-image-picker";
 import { useNavigation } from "expo-router";
 import { useCallback, useState } from "react";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
@@ -7,27 +8,68 @@ import { StyleSheet } from "react-native-unistyles";
 import { Container } from "@/components/container";
 import { AvatarPlaceholder } from "../components/avatar-placeholder";
 import { Field } from "../components/field";
-import { authStore } from "../stores/auth";
+import { useUser } from "../hooks/use-user";
+import { mmkvStorage } from "../lib/mmkvStorage";
 
 export default function Profile() {
   const headerHeight = useHeaderHeight();
   const navigation = useNavigation();
 
-  const [name, setName] = useState(() => authStore.get()?.name ?? "");
-  const [email, setEmail] = useState(() => authStore.get()?.email ?? "");
-  const [phone, setPhone] = useState("");
+  const {
+    user: {
+      email: defaultEmail,
+      image: defatulImage,
+      name: defaultName,
+      phone: defaultPhone,
+    },
+    setEmail: saveEmail,
+    setName: saveName,
+    setImage: saveProfile,
+    setPhone: savePhone,
+  } = useUser();
+
+  const [name, setName] = useState(defaultName);
+  const [email, setEmail] = useState(defaultEmail);
+  const [phone, setPhone] = useState(defaultPhone);
+  const [profile, setProfile] = useState(defatulImage);
 
   const [notifyOrderStatus, setNotifyOrderStatus] = useState(true);
   const [notifyPasswordChange, setNotifyPasswordChange] = useState(true);
   const [notifyOffers, setNotifyOffers] = useState(true);
   const [notifyNewsletter, setNotifyNewsletter] = useState(true);
 
-  const hasProfileImage = false;
+  const hasProfileImage = !!profile?.length;
 
   const handleSave = useCallback(() => {
-    authStore.save({ name: name.trim(), email: email.trim() });
     navigation.setOptions({ headerRight: undefined });
-  }, [navigation, name, email]);
+
+    saveEmail(email);
+    saveName(name);
+    saveProfile(profile);
+    savePhone(phone);
+  }, [
+    navigation,
+    name,
+    email,
+    profile,
+    phone,
+    savePhone,
+    saveEmail,
+    saveName,
+    saveProfile,
+  ]);
+
+  const handlePickImage = useCallback(async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ["images"],
+      quality: 0.7,
+    });
+
+    if (!result.canceled) {
+      const uri = result.assets[0].uri;
+      setProfile(uri);
+    }
+  }, []);
 
   const notifItems = [
     {
@@ -62,13 +104,16 @@ export default function Profile() {
         <View style={styles.avatarSection}>
           {hasProfileImage ? (
             <Image
-              source={require("../../assets/images/profile.png")}
               style={styles.avatar}
+              source={{ uri: profile }}
             />
           ) : (
-            <AvatarPlaceholder name={name} />
+            <AvatarPlaceholder name={name ?? ""} />
           )}
-          <Pressable style={styles.changePhotoButton}>
+          <Pressable
+            style={styles.changePhotoButton}
+            onPress={handlePickImage}
+          >
             <Text style={styles.changePhotoText}>Alterar foto</Text>
           </Pressable>
         </View>
@@ -76,14 +121,14 @@ export default function Profile() {
         <View style={styles.card}>
           <Field
             label="Nome"
-            value={name}
+            value={name ?? ""}
             onChangeText={setName}
             placeholder="João Silva"
           />
           <View style={styles.divider} />
           <Field
             label="Email"
-            value={email}
+            value={email ?? ""}
             onChangeText={setEmail}
             placeholder="joao@email.com"
             keyboardType="email-address"
@@ -93,7 +138,7 @@ export default function Profile() {
           <View style={styles.divider} />
           <Field
             label="Telefone"
-            value={phone}
+            value={phone ?? ""}
             onChangeText={setPhone}
             placeholder="+55 11 91234-5678"
             keyboardType="phone-pad"

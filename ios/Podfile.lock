@@ -1,6 +1,9 @@
 PODS:
   - EXConstants (18.0.13):
     - ExpoModulesCore
+  - EXImageLoader (6.0.0):
+    - ExpoModulesCore
+    - React-Core
   - EXJSONUtils (0.15.0)
   - EXManifests (1.0.10):
     - ExpoModulesCore
@@ -211,6 +214,8 @@ PODS:
   - ExpoHead (6.0.23):
     - ExpoModulesCore
     - RNScreens
+  - ExpoImagePicker (17.0.10):
+    - ExpoModulesCore
   - ExpoKeepAwake (15.0.8):
     - ExpoModulesCore
   - ExpoLinking (8.0.11):
@@ -2285,6 +2290,7 @@ PODS:
 
 DEPENDENCIES:
   - EXConstants (from `../node_modules/expo-constants/ios`)
+  - EXImageLoader (from `../node_modules/expo-image-loader/ios`)
   - EXJSONUtils (from `../node_modules/expo-json-utils/ios`)
   - EXManifests (from `../node_modules/expo-manifests/ios`)
   - Expo (from `../node_modules/expo`)
@@ -2297,6 +2303,7 @@ DEPENDENCIES:
   - ExpoFont (from `../node_modules/expo-font/ios`)
   - ExpoHaptics (from `../node_modules/expo-haptics/ios`)
   - ExpoHead (from `../node_modules/expo-router/ios`)
+  - ExpoImagePicker (from `../node_modules/expo-image-picker/ios`)
   - ExpoKeepAwake (from `../node_modules/expo-keep-awake/ios`)
   - ExpoLinking (from `../node_modules/expo-linking/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core`)
@@ -2390,6 +2397,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   EXConstants:
     :path: "../node_modules/expo-constants/ios"
+  EXImageLoader:
+    :path: "../node_modules/expo-image-loader/ios"
   EXJSONUtils:
     :path: "../node_modules/expo-json-utils/ios"
   EXManifests:
@@ -2414,6 +2423,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-haptics/ios"
   ExpoHead:
     :path: "../node_modules/expo-router/ios"
+  ExpoImagePicker:
+    :path: "../node_modules/expo-image-picker/ios"
   ExpoKeepAwake:
     :path: "../node_modules/expo-keep-awake/ios"
   ExpoLinking:
@@ -2586,6 +2597,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   EXConstants: 3feb66fd1d94202fc1f0946d74e029d8b224b60e
+  EXImageLoader: e501c001bc40b8326605e82e6e80363c80fe06b5
   EXJSONUtils: 1d3e4590438c3ee593684186007028a14b3686cd
   EXManifests: 83ef0844fcf06d6099b12a7bdbd7d36fc0e1dd16
   Expo: 7f5e64b5d18096dcec86814764b526b0cb97811c
@@ -2598,6 +2610,7 @@ SPEC CHECKSUMS:
   ExpoFont: c625dbd97ed57e9089b172b2a7bb99003d074664
   ExpoHaptics: 7240781406f4563c3f4eb1e72864302a8c643fd0
   ExpoHead: 3f6ed6cbda48f13bcaddae98f8e5dc525dcfb34f
+  ExpoImagePicker: 115fada5d2e90bf900dea64151953ca39f67b47b
   ExpoKeepAwake: 44bf6715bc1d2ddb17afe19d927cd039cda123f0
   ExpoLinking: ebf543fd411d56375cb4eee07f6ab4e31c7ad959
   ExpoModulesCore: 77496909fd3c800f97f7f2007dd26aeac4bb3798
