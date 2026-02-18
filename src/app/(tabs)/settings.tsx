@@ -5,7 +5,6 @@ import { StyleSheet } from "react-native-unistyles";
 import { AvatarPlaceholder } from "@/components/avatar-placeholder";
 import { Container } from "@/components/container";
 import { SettingsRow, SettingsSection } from "@/components/section";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { useUser } from "@/hooks/use-user";
 
 export default function TabTwoScreen() {
