@@ -39,19 +39,6 @@ export default function TabTwoScreen() {
               router.push("/profile");
             }}
           />
-          <SettingsRow
-            label="Endereços"
-            onPress={() => {}}
-          />
-          <SettingsRow
-            label="Métodos de pagamento"
-            onPress={() => {}}
-          />
-          <SettingsRow
-            label="Alterar senha"
-            onPress={() => {}}
-            isLast
-          />
         </SettingsSection>
         <Pressable
           style={({ pressed }) => [
