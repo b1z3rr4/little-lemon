@@ -41,10 +41,11 @@ export const HeroBanner = () => {
       >
         <View style={styles.heroRow}>
           <View style={styles.heroTextBlock}>
-            <Text style={styles.heroTitle}>Little{"\n"}Lemon</Text>
+            <Text style={styles.heroTitle}>Little Lemon</Text>
             <Text style={styles.heroSubtitle}>Chicago</Text>
             <Text style={styles.heroDescription}>
-              Culinária mediterrânea com um toque moderno.
+              We are a family owned Mediterranean restaurant, focused on
+              traditional recipes served with a modern twist.
             </Text>
           </View>
 
@@ -74,8 +75,8 @@ const styles = StyleSheet.create((theme) => ({
     backgroundColor: theme.colors.primary,
   },
   content: {
-    padding: theme.spacing.md,
     gap: theme.spacing.md,
+    padding: theme.spacing.md,
   },
   heroRow: {
     flexDirection: "row",
@@ -87,17 +88,15 @@ const styles = StyleSheet.create((theme) => ({
     gap: theme.spacing.xs,
   },
   heroTitle: {
-    fontSize: theme.fontSize["4xl"],
+    lineHeight: 44,
     fontWeight: 800,
     color: theme.colors.secondary,
-    lineHeight: 44,
-    letterSpacing: -1,
+    fontSize: theme.fontSize["3xl"],
   },
   heroSubtitle: {
-    fontSize: theme.fontSize.xl,
-    fontWeight: "600",
+    fontWeight: 600,
+    fontSize: theme.fontSize.lg,
     color: theme.colors.primaryForeground,
-    marginTop: -2,
   },
   heroDescription: {
     lineHeight: 18,
